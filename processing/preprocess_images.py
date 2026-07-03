@@ -3,6 +3,26 @@ import os
 import matplotlib.pyplot as plt
 
 
+BUS_FOLDER = "dataset/bus"
+
+loaded = 0
+skipped = 0
+
+for file in os.listdir(BUS_FOLDER):
+
+    path = os.path.join(BUS_FOLDER, file)
+
+    img = cv2.imread(path)
+
+    if img is None:
+        print("Skipped:", file)
+        skipped += 1
+    else:
+        loaded += 1
+
+print("\nLoaded:", loaded)
+print("Skipped:", skipped)
+
 folder="dataset/bus"
 
 file=os.listdir(folder)[0]
@@ -72,4 +92,4 @@ plt.title(
 
 plt.axis("off")
 
-plt.show()
+plt.close()
