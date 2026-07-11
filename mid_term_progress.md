@@ -2,11 +2,9 @@
 
 **Course:** CS 898BA – Image Analysis and Computer Vision
 
-**Student:** Ijeoma Nwosu
+**Name:** Ijeoma Nwosu
 
 **Project Milestone:** Midterm Progress Report & Presentation
-
-**Semester:** Summer 2026
 
 ## Project Overview
 
@@ -17,7 +15,7 @@ The objective of this project is to design and implement a computer vision syste
 - School Bus
 - Background (everything else)
 
-The original project proposal included a YOLO-based object detector. During implementation, the design was revised to comply with the course requirement prohibiting pretrained neural network models. The final implementation will therefore use a **custom Convolutional Neural Network (CNN) built and trained entirely from scratch** while preserving the proposed image-processing pipeline.
+The original project proposal included a YOLO-based object detector. During implementation, the design was revised to comply with the course requirement prohibiting pretrained neural network models. The final implementation will therefore use a custom Convolutional Neural Network (CNN) built and trained entirely from scratch while preserving the proposed image-processing pipeline.
 
 ## Problem Statement
 
@@ -133,9 +131,7 @@ IjeomaNwosu-CS898BA-Project/
 ├── README.md
 │
 └── venv/
-```
-
-## Development Environment
+##Development Environment
 
 Operating System
 
