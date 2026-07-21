@@ -1,0 +1,7 @@
+Split,Class,Valid Images,Invalid Images,Invalid File Names
+train,bus,57,0,
+train,background,105,0,
+validation,bus,13,0,
+validation,background,22,0,
+test,bus,14,0,
+test,background,23,0,
