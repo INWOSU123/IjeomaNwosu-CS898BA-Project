@@ -4,9 +4,11 @@
     "test_loss": 0.6475504636764526,
     "default_threshold": 0.5,
     "default_test_accuracy": 0.6216216087341309,
-    "selected_threshold": 0.35,
-    "selected_threshold_accuracy": 0.3783783783783784,
-    "selected_threshold_bus_f1_score": 0.5490196078431373,
+    "selected_threshold": 0.4,
+    "selected_threshold_accuracy": 0.7027027027027027,
+    "bus_precision": 0.7142857142857143,
+    "bus_recall": 0.35714285714285715,
+    "bus_f1_score": 0.47619047619047616,
     "probability_summary": {
         "minimum": 0.3569723963737488,
         "maximum": 0.43143072724342346,
@@ -15,39 +17,39 @@
     },
     "classification_report": {
         "background": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.7,
+            "recall": 0.9130434782608695,
+            "f1-score": 0.7924528301886793,
             "support": 23.0
         },
         "bus": {
-            "precision": 0.3783783783783784,
-            "recall": 1.0,
-            "f1-score": 0.5490196078431373,
+            "precision": 0.7142857142857143,
+            "recall": 0.35714285714285715,
+            "f1-score": 0.47619047619047616,
             "support": 14.0
         },
-        "accuracy": 0.3783783783783784,
+        "accuracy": 0.7027027027027027,
         "macro avg": {
-            "precision": 0.1891891891891892,
-            "recall": 0.5,
-            "f1-score": 0.27450980392156865,
+            "precision": 0.7071428571428571,
+            "recall": 0.6350931677018633,
+            "f1-score": 0.6343216531895777,
             "support": 37.0
         },
         "weighted avg": {
-            "precision": 0.14317019722425128,
-            "recall": 0.3783783783783784,
-            "f1-score": 0.20773714891361952,
+            "precision": 0.7054054054054053,
+            "recall": 0.7027027027027027,
+            "f1-score": 0.6727859935407107,
             "support": 37.0
         }
     },
     "confusion_matrix": [
         [
-            0,
-            23
+            21,
+            2
         ],
         [
-            0,
-            14
+            9,
+            5
         ]
     ],
     "class_indices": {

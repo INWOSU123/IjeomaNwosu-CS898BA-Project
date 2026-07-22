@@ -5,10 +5,10 @@ Evaluates the compact school bus CNN on the untouched test dataset.
 
 This script:
 - Loads the compact model
-- Evaluates loss and default accuracy
-- Tests multiple classification thresholds
-- Selects the threshold with the best bus F1-score
-- Saves metrics and a confusion matrix
+- Evaluates default performance at threshold 0.50
+- Compares several probability thresholds
+- Uses threshold 0.40 for the final practical evaluation
+- Saves test metrics and a confusion matrix
 """
 
 import json
@@ -71,6 +71,9 @@ CONFUSION_MATRIX_PATH = os.path.join(
 IMAGE_SIZE = (128, 128)
 BATCH_SIZE = 16
 
+DEFAULT_THRESHOLD = 0.50
+SELECTED_THRESHOLD = 0.40
+
 THRESHOLDS = [
     0.50,
     0.45,
@@ -80,7 +83,6 @@ THRESHOLDS = [
     0.25,
     0.20,
 ]
-
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -126,13 +128,13 @@ def create_test_generator():
 
 
 # --------------------------------------------------
-# Get Class Names
+# Get Ordered Class Names
 # --------------------------------------------------
 
 def get_class_names(test_generator):
     """Return class names ordered by class index."""
 
-    class_names = [
+    return [
         class_name
         for class_name, class_index in sorted(
             test_generator.class_indices.items(),
@@ -140,32 +142,19 @@ def get_class_names(test_generator):
         )
     ]
 
-    return class_names
-
 
 # --------------------------------------------------
-# Evaluate Thresholds
+# Compare Thresholds
 # --------------------------------------------------
 
-def evaluate_thresholds(
+def compare_thresholds(
     probabilities,
     true_classes,
     class_names,
 ):
-    """
-    Evaluate multiple probability thresholds.
-
-    The threshold with the highest bus F1-score is selected.
-    Accuracy is used as a tie-breaker.
-    """
+    """Evaluate several classification thresholds."""
 
     threshold_results = []
-
-    best_threshold = None
-    best_predictions = None
-    best_report = None
-    best_accuracy = -1.0
-    best_bus_f1 = -1.0
 
     print("\nThreshold comparison")
     print("-" * 72)
@@ -181,18 +170,18 @@ def evaluate_thresholds(
     print("-" * 72)
 
     for threshold in THRESHOLDS:
-        predicted_classes = (
+        predictions = (
             probabilities >= threshold
         ).astype(int)
 
         accuracy = accuracy_score(
             true_classes,
-            predicted_classes,
+            predictions,
         )
 
         report = classification_report(
             true_classes,
-            predicted_classes,
+            predictions,
             target_names=class_names,
             output_dict=True,
             zero_division=0,
@@ -202,15 +191,15 @@ def evaluate_thresholds(
         bus_recall = report["bus"]["recall"]
         bus_f1 = report["bus"]["f1-score"]
 
-        result = {
-            "threshold": float(threshold),
-            "accuracy": float(accuracy),
-            "bus_precision": float(bus_precision),
-            "bus_recall": float(bus_recall),
-            "bus_f1_score": float(bus_f1),
-        }
-
-        threshold_results.append(result)
+        threshold_results.append(
+            {
+                "threshold": float(threshold),
+                "accuracy": float(accuracy),
+                "bus_precision": float(bus_precision),
+                "bus_recall": float(bus_recall),
+                "bus_f1_score": float(bus_f1),
+            }
+        )
 
         print(
             f"{threshold:<12.2f}"
@@ -220,28 +209,7 @@ def evaluate_thresholds(
             f"{bus_f1:<10.4f}"
         )
 
-        is_better_f1 = bus_f1 > best_bus_f1
-
-        is_equal_f1_better_accuracy = (
-            np.isclose(bus_f1, best_bus_f1)
-            and accuracy > best_accuracy
-        )
-
-        if is_better_f1 or is_equal_f1_better_accuracy:
-            best_threshold = threshold
-            best_predictions = predicted_classes
-            best_report = report
-            best_accuracy = accuracy
-            best_bus_f1 = bus_f1
-
-    return {
-        "best_threshold": best_threshold,
-        "best_predictions": best_predictions,
-        "best_report": best_report,
-        "best_accuracy": best_accuracy,
-        "best_bus_f1": best_bus_f1,
-        "threshold_results": threshold_results,
-    }
+    return threshold_results
 
 
 # --------------------------------------------------
@@ -251,9 +219,8 @@ def evaluate_thresholds(
 def save_confusion_matrix(
     matrix,
     class_names,
-    selected_threshold,
 ):
-    """Create and save the selected-threshold confusion matrix."""
+    """Save the confusion matrix for threshold 0.40."""
 
     display = ConfusionMatrixDisplay(
         confusion_matrix=matrix,
@@ -266,7 +233,7 @@ def save_confusion_matrix(
 
     plt.title(
         "Compact School Bus CNN Confusion Matrix\n"
-        f"Selected Threshold = {selected_threshold:.2f}"
+        f"Threshold = {SELECTED_THRESHOLD:.2f}"
     )
 
     plt.tight_layout()
@@ -302,7 +269,7 @@ def main():
         MODEL_PATH
     )
 
-    # Keras evaluates binary accuracy using threshold 0.5.
+    # Keras binary accuracy uses threshold 0.50.
     test_loss, default_test_accuracy = model.evaluate(
         test_generator,
         verbose=1,
@@ -317,48 +284,53 @@ def main():
 
     print("\nProbability summary")
     print("-" * 40)
+
     print(
         f"Minimum probability: "
         f"{probabilities.min():.4f}"
     )
+
     print(
         f"Maximum probability: "
         f"{probabilities.max():.4f}"
     )
+
     print(
         f"Mean probability: "
         f"{probabilities.mean():.4f}"
     )
+
     print(
         f"Median probability: "
         f"{np.median(probabilities):.4f}"
     )
 
-    threshold_evaluation = evaluate_thresholds(
+    threshold_results = compare_thresholds(
         probabilities=probabilities,
         true_classes=true_classes,
         class_names=class_names,
     )
 
-    selected_threshold = threshold_evaluation[
-        "best_threshold"
-    ]
+    # --------------------------------------------------
+    # Final evaluation using threshold 0.40
+    # --------------------------------------------------
 
-    predicted_classes = threshold_evaluation[
-        "best_predictions"
-    ]
+    predicted_classes = (
+        probabilities >= SELECTED_THRESHOLD
+    ).astype(int)
 
-    selected_report = threshold_evaluation[
-        "best_report"
-    ]
+    selected_accuracy = accuracy_score(
+        true_classes,
+        predicted_classes,
+    )
 
-    selected_accuracy = threshold_evaluation[
-        "best_accuracy"
-    ]
-
-    selected_bus_f1 = threshold_evaluation[
-        "best_bus_f1"
-    ]
+    selected_report = classification_report(
+        true_classes,
+        predicted_classes,
+        target_names=class_names,
+        output_dict=True,
+        zero_division=0,
+    )
 
     report_text = classification_report(
         true_classes,
@@ -372,27 +344,47 @@ def main():
         predicted_classes,
     )
 
+    bus_precision = selected_report["bus"]["precision"]
+    bus_recall = selected_report["bus"]["recall"]
+    bus_f1 = selected_report["bus"]["f1-score"]
+
     print("\nSelected threshold results")
     print("-" * 40)
+
     print(
         f"Selected threshold: "
-        f"{selected_threshold:.2f}"
+        f"{SELECTED_THRESHOLD:.2f}"
     )
+
     print(
         f"Test loss: "
         f"{test_loss:.4f}"
     )
+
     print(
-        f"Default accuracy at threshold 0.50: "
+        f"Default accuracy at threshold "
+        f"{DEFAULT_THRESHOLD:.2f}: "
         f"{default_test_accuracy:.4f}"
     )
+
     print(
         f"Selected-threshold accuracy: "
         f"{selected_accuracy:.4f}"
     )
+
     print(
-        f"Selected-threshold bus F1-score: "
-        f"{selected_bus_f1:.4f}"
+        f"Bus precision: "
+        f"{bus_precision:.4f}"
+    )
+
+    print(
+        f"Bus recall: "
+        f"{bus_recall:.4f}"
+    )
+
+    print(
+        f"Bus F1-score: "
+        f"{bus_f1:.4f}"
     )
 
     print("\nClassification report:")
@@ -405,18 +397,24 @@ def main():
         "model_name": "school_bus_cnn_compact",
         "model_path": MODEL_PATH,
         "test_loss": float(test_loss),
-        "default_threshold": 0.50,
+        "default_threshold": float(DEFAULT_THRESHOLD),
         "default_test_accuracy": float(
             default_test_accuracy
         ),
         "selected_threshold": float(
-            selected_threshold
+            SELECTED_THRESHOLD
         ),
         "selected_threshold_accuracy": float(
             selected_accuracy
         ),
-        "selected_threshold_bus_f1_score": float(
-            selected_bus_f1
+        "bus_precision": float(
+            bus_precision
+        ),
+        "bus_recall": float(
+            bus_recall
+        ),
+        "bus_f1_score": float(
+            bus_f1
         ),
         "probability_summary": {
             "minimum": float(
@@ -435,9 +433,7 @@ def main():
         "classification_report": selected_report,
         "confusion_matrix": matrix.tolist(),
         "class_indices": test_generator.class_indices,
-        "threshold_comparison": threshold_evaluation[
-            "threshold_results"
-        ],
+        "threshold_comparison": threshold_results,
     }
 
     with open(
@@ -454,7 +450,6 @@ def main():
     save_confusion_matrix(
         matrix=matrix,
         class_names=class_names,
-        selected_threshold=selected_threshold,
     )
 
     print("\nEvaluation files saved:")

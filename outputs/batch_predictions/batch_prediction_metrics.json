@@ -1,0 +1,66 @@
+{
+    "model_name": "school_bus_cnn_compact",
+    "model_path": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\models\\saved_models\\school_bus_cnn_compact.keras",
+    "decision_threshold": 0.4,
+    "image_size": [
+        128,
+        128
+    ],
+    "total_images": 37,
+    "correct_predictions": 26,
+    "incorrect_predictions": 11,
+    "accuracy": 0.7027027027027027,
+    "correct_backgrounds": 21,
+    "false_bus_alerts": 2,
+    "detected_buses": 5,
+    "missed_buses": 9,
+    "probability_summary": {
+        "background_images": {
+            "minimum": 0.356972,
+            "maximum": 0.431431,
+            "mean": 0.37582608695652175
+        },
+        "bus_images": {
+            "minimum": 0.35868,
+            "maximum": 0.421509,
+            "mean": 0.39233242857142864
+        }
+    },
+    "classification_report": {
+        "background": {
+            "precision": 0.7,
+            "recall": 0.9130434782608695,
+            "f1-score": 0.7924528301886793,
+            "support": 23.0
+        },
+        "bus": {
+            "precision": 0.7142857142857143,
+            "recall": 0.35714285714285715,
+            "f1-score": 0.47619047619047616,
+            "support": 14.0
+        },
+        "accuracy": 0.7027027027027027,
+        "macro avg": {
+            "precision": 0.7071428571428571,
+            "recall": 0.6350931677018633,
+            "f1-score": 0.6343216531895777,
+            "support": 37.0
+        },
+        "weighted avg": {
+            "precision": 0.7054054054054053,
+            "recall": 0.7027027027027027,
+            "f1-score": 0.6727859935407107,
+            "support": 37.0
+        }
+    },
+    "confusion_matrix": [
+        [
+            21,
+            2
+        ],
+        [
+            9,
+            5
+        ]
+    ]
+}
