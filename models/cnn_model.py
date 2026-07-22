@@ -1,114 +1,101 @@
 """
 cnn_model.py
 
-Defines the custom Convolutional Neural Network (CNN)
-used for binary school bus classification.
-
-Author: Ijeoma Nwosu
-Course: CS898BA – Image Analysis and Computer Vision
+Defines a compact custom CNN for binary school bus classification.
+The model is trained from scratch without pretrained networks.
 """
 
 import tensorflow as tf
+
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import (
-    Conv2D,
     BatchNormalization,
-    MaxPooling2D,
+    Conv2D,
+    Dense,
     Dropout,
-    Flatten,
-    Dense
+    GlobalAveragePooling2D,
+    Input,
+    MaxPooling2D,
 )
 
 
-IMAGE_HEIGHT = 128
-IMAGE_WIDTH = 128
-CHANNELS = 3
+def build_cnn_model(
+    input_shape=(128, 128, 3),
+    learning_rate=0.0005,
+):
+    """
+    Build and compile a compact CNN.
 
+    Parameters
+    ----------
+    input_shape : tuple
+        Input image dimensions.
 
-def build_cnn_model():
+    learning_rate : float
+        Adam optimizer learning rate.
 
-    model = Sequential(name="SchoolBusCNN")
+    Returns
+    -------
+    tensorflow.keras.Model
+        Compiled binary classification model.
+    """
 
-    # -------------------------------------------------
-    # Block 1
-    # -------------------------------------------------
+    model = Sequential(
+        [
+            Input(shape=input_shape),
 
-    model.add(
-        Conv2D(
-            filters=32,
-            kernel_size=(3, 3),
-            activation="relu",
-            padding="same",
-            input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS),
-        )
+            Conv2D(
+                16,
+                kernel_size=(3, 3),
+                padding="same",
+                activation="relu",
+            ),
+            BatchNormalization(),
+            MaxPooling2D(pool_size=(2, 2)),
+            Dropout(0.20),
+
+            Conv2D(
+                32,
+                kernel_size=(3, 3),
+                padding="same",
+                activation="relu",
+            ),
+            BatchNormalization(),
+            MaxPooling2D(pool_size=(2, 2)),
+            Dropout(0.25),
+
+            Conv2D(
+                64,
+                kernel_size=(3, 3),
+                padding="same",
+                activation="relu",
+            ),
+            BatchNormalization(),
+            MaxPooling2D(pool_size=(2, 2)),
+            Dropout(0.30),
+
+            GlobalAveragePooling2D(),
+
+            Dense(
+                32,
+                activation="relu",
+            ),
+            Dropout(0.40),
+
+            Dense(
+                1,
+                activation="sigmoid",
+            ),
+        ],
+        name="CompactSchoolBusCNN",
     )
 
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    # -------------------------------------------------
-    # Block 2
-    # -------------------------------------------------
-
-    model.add(
-        Conv2D(
-            filters=64,
-            kernel_size=(3, 3),
-            activation="relu",
-            padding="same",
-        )
+    optimizer = tf.keras.optimizers.Adam(
+        learning_rate=learning_rate,
     )
-
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    # -------------------------------------------------
-    # Block 3
-    # -------------------------------------------------
-
-    model.add(
-        Conv2D(
-            filters=128,
-            kernel_size=(3, 3),
-            activation="relu",
-            padding="same",
-        )
-    )
-
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    # -------------------------------------------------
-    # Classification Head
-    # -------------------------------------------------
-
-    model.add(Flatten())
-
-    model.add(
-        Dense(
-            128,
-            activation="relu",
-        )
-    )
-
-    model.add(Dropout(0.50))
-
-    model.add(
-        Dense(
-            1,
-            activation="sigmoid",
-        )
-    )
-
-    # -------------------------------------------------
-    # Compile Model
-    # -------------------------------------------------
 
     model.compile(
-        optimizer="adam",
+        optimizer=optimizer,
         loss="binary_crossentropy",
         metrics=["accuracy"],
     )
@@ -117,7 +104,5 @@ def build_cnn_model():
 
 
 if __name__ == "__main__":
-
-    cnn = build_cnn_model()
-
-    cnn.summary()
+    cnn_model = build_cnn_model()
+    cnn_model.summary()

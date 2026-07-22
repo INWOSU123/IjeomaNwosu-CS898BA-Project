@@ -1,0 +1,108 @@
+{
+    "model_name": "school_bus_cnn_compact",
+    "model_path": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\models\\saved_models\\school_bus_cnn_compact.keras",
+    "test_loss": 0.6475504636764526,
+    "default_threshold": 0.5,
+    "default_test_accuracy": 0.6216216087341309,
+    "selected_threshold": 0.35,
+    "selected_threshold_accuracy": 0.3783783783783784,
+    "selected_threshold_bus_f1_score": 0.5490196078431373,
+    "probability_summary": {
+        "minimum": 0.3569723963737488,
+        "maximum": 0.43143072724342346,
+        "mean": 0.38207176327705383,
+        "median": 0.3767905831336975
+    },
+    "classification_report": {
+        "background": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 23.0
+        },
+        "bus": {
+            "precision": 0.3783783783783784,
+            "recall": 1.0,
+            "f1-score": 0.5490196078431373,
+            "support": 14.0
+        },
+        "accuracy": 0.3783783783783784,
+        "macro avg": {
+            "precision": 0.1891891891891892,
+            "recall": 0.5,
+            "f1-score": 0.27450980392156865,
+            "support": 37.0
+        },
+        "weighted avg": {
+            "precision": 0.14317019722425128,
+            "recall": 0.3783783783783784,
+            "f1-score": 0.20773714891361952,
+            "support": 37.0
+        }
+    },
+    "confusion_matrix": [
+        [
+            0,
+            23
+        ],
+        [
+            0,
+            14
+        ]
+    ],
+    "class_indices": {
+        "background": 0,
+        "bus": 1
+    },
+    "threshold_comparison": [
+        {
+            "threshold": 0.5,
+            "accuracy": 0.6216216216216216,
+            "bus_precision": 0.0,
+            "bus_recall": 0.0,
+            "bus_f1_score": 0.0
+        },
+        {
+            "threshold": 0.45,
+            "accuracy": 0.6216216216216216,
+            "bus_precision": 0.0,
+            "bus_recall": 0.0,
+            "bus_f1_score": 0.0
+        },
+        {
+            "threshold": 0.4,
+            "accuracy": 0.7027027027027027,
+            "bus_precision": 0.7142857142857143,
+            "bus_recall": 0.35714285714285715,
+            "bus_f1_score": 0.47619047619047616
+        },
+        {
+            "threshold": 0.35,
+            "accuracy": 0.3783783783783784,
+            "bus_precision": 0.3783783783783784,
+            "bus_recall": 1.0,
+            "bus_f1_score": 0.5490196078431373
+        },
+        {
+            "threshold": 0.3,
+            "accuracy": 0.3783783783783784,
+            "bus_precision": 0.3783783783783784,
+            "bus_recall": 1.0,
+            "bus_f1_score": 0.5490196078431373
+        },
+        {
+            "threshold": 0.25,
+            "accuracy": 0.3783783783783784,
+            "bus_precision": 0.3783783783783784,
+            "bus_recall": 1.0,
+            "bus_f1_score": 0.5490196078431373
+        },
+        {
+            "threshold": 0.2,
+            "accuracy": 0.3783783783783784,
+            "bus_precision": 0.3783783783783784,
+            "bus_recall": 1.0,
+            "bus_f1_score": 0.5490196078431373
+        }
+    ]
+}
