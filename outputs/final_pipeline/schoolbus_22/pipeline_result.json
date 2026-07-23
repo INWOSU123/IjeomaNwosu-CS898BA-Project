@@ -1,0 +1,64 @@
+{
+    "input_image": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\dataset\\test\\bus\\schoolbus_22.jpeg",
+    "model_path": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\models\\saved_models\\school_bus_cnn_compact.keras",
+    "pipeline": [
+        "resize",
+        "clahe",
+        "hsv_yellow_segmentation",
+        "morphological_opening_and_closing",
+        "compact_cnn_prediction"
+    ],
+    "settings": {
+        "model_image_size": [
+            128,
+            128
+        ],
+        "display_image_size": [
+            640,
+            480
+        ],
+        "decision_threshold": 0.4,
+        "clahe_clip_limit": 2.0,
+        "clahe_grid_size": [
+            8,
+            8
+        ],
+        "lower_yellow_hsv": [
+            15,
+            70,
+            70
+        ],
+        "upper_yellow_hsv": [
+            40,
+            255,
+            255
+        ],
+        "morph_kernel_size": [
+            5,
+            5
+        ],
+        "morph_iterations": 2
+    },
+    "prediction": {
+        "bus_probability": 0.38581302762031555,
+        "decision_threshold": 0.4,
+        "predicted_class_id": 0,
+        "predicted_label": "Background",
+        "confidence": 0.6141869723796844
+    },
+    "yellow_mask_statistics": {
+        "yellow_pixels": 93285,
+        "total_pixels": 307200,
+        "yellow_percentage": 30.3662109375
+    },
+    "saved_outputs": {
+        "original": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\outputs\\final_pipeline\\schoolbus_22\\01_original.png",
+        "resized": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\outputs\\final_pipeline\\schoolbus_22\\02_resized.png",
+        "clahe": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\outputs\\final_pipeline\\schoolbus_22\\03_clahe_enhanced.png",
+        "raw_mask": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\outputs\\final_pipeline\\schoolbus_22\\04_raw_yellow_mask.png",
+        "cleaned_mask": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\outputs\\final_pipeline\\schoolbus_22\\05_cleaned_yellow_mask.png",
+        "masked_image": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\outputs\\final_pipeline\\schoolbus_22\\06_masked_yellow_regions.png",
+        "final_result": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\outputs\\final_pipeline\\schoolbus_22\\07_final_prediction.png",
+        "summary_figure": "C:\\Users\\Ijeoma\\Documents\\IjeomaNwosu-CS898BA-Project\\outputs\\final_pipeline\\schoolbus_22\\08_pipeline_summary.png"
+    }
+}
