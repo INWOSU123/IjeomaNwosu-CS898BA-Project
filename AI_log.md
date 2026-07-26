@@ -8,3 +8,8 @@ cars
 vans
 trucks
 empty roads
+
+Date and Time: 7/23/2026 7PM CST
+Prompt: what markdown violations is this document violating
+Tool: chat gpt4
+Response Sypnosis: Errors were found on lines and a corrected one generated

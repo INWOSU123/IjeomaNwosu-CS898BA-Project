@@ -732,7 +732,7 @@ objective of developing and evaluating a complete detection system from scratch.
 
 #### Prerequisites
 
-- Python 3.10 or later
+- Python 3.10
 - Git
 - Visual Studio Code
 - pip
@@ -800,12 +800,13 @@ Potential improvements include:
 
 ### References
 
-- TensorFlow Documentation
-- OpenCV Documentation
-- NumPy Documentation
-- Scikit-learn Documentation
-- Goodfellow, Bengio, and Courville. Deep Learning. MIT Press.
-- Gonzalez and Woods. Digital Image Processing.
+[1] TensorFlow, "TensorFlow Documentation." [Online]. Available: [https://www.tensorflow.org/](https://www.tensorflow.org/). [Accessed: Jul. 26, 2026].
+[2] OpenCV, "OpenCV Documentation." [Online]. Available: [https://docs.opencv.org/](https://docs.opencv.org/). [Accessed: Jul. 26, 2026].
+[3] NumPy Developers, "NumPy Documentation." [Online]. Available: [https://numpy.org/doc/](https://numpy.org/doc/). [Accessed: Jul. 26, 2026].
+[4] Scikit-learn Developers, "Scikit-learn Documentation." [Online]. Available: [https://scikit-learn.org/stable/documentation.html](https://scikit-learn.org/stable/documentation.html). [Accessed: Jul. 26, 2026].
+[5] I. Goodfellow, Y. Bengio, and A. Courville, *Deep Learning*. Cambridge, MA, USA: MIT Press, 2016.
+[6] R. C. Gonzalez and R. E. Woods, *Digital Image Processing*, 4th ed. New York, NY, USA: Pearson, 2018.
+[7] iStock by Getty Images, "Stock Photos, Royalty-Free Images & Video." [Online]. Available: [https://www.istockphoto.com/](https://www.istockphoto.com/). [Accessed: Jul. 26, 2026].
 
 ### Conclusion
 
