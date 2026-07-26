@@ -30,10 +30,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
-
-# --------------------------------------------------
 # Project Paths
-# --------------------------------------------------
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))
@@ -53,9 +50,7 @@ OUTPUT_ROOT = os.path.join(
 )
 
 
-# --------------------------------------------------
 # Pipeline Settings
-# --------------------------------------------------
 
 MODEL_IMAGE_SIZE = (128, 128)
 
@@ -81,9 +76,7 @@ MORPH_KERNEL_SIZE = (5, 5)
 MORPH_ITERATIONS = 2
 
 
-# --------------------------------------------------
 # Validate Files
-# --------------------------------------------------
 
 def validate_paths(image_path):
     """Confirm that the model and input image exist."""
@@ -99,9 +92,7 @@ def validate_paths(image_path):
         )
 
 
-# --------------------------------------------------
 # Create Output Directory
-# --------------------------------------------------
 
 def create_output_directory(image_path):
     """
@@ -126,10 +117,7 @@ def create_output_directory(image_path):
 
     return output_dir
 
-
-# --------------------------------------------------
 # Load and Resize Image
-# --------------------------------------------------
 
 def load_and_resize_image(image_path):
     """
@@ -157,10 +145,7 @@ def load_and_resize_image(image_path):
 
     return original_bgr, resized_bgr
 
-
-# --------------------------------------------------
 # CLAHE Enhancement
-# --------------------------------------------------
 
 def apply_clahe(image_bgr):
     """
@@ -204,9 +189,7 @@ def apply_clahe(image_bgr):
     return clahe_bgr
 
 
-# --------------------------------------------------
 # HSV Yellow Segmentation
-# --------------------------------------------------
 
 def create_yellow_mask(image_bgr):
     """
@@ -230,9 +213,7 @@ def create_yellow_mask(image_bgr):
     return raw_mask
 
 
-# --------------------------------------------------
 # Morphological Cleanup
-# --------------------------------------------------
 
 def clean_mask(raw_mask):
     """
@@ -267,9 +248,7 @@ def clean_mask(raw_mask):
     return cleaned_mask
 
 
-# --------------------------------------------------
 # Create Masked Image
-# --------------------------------------------------
 
 def create_masked_image(
     image_bgr,
@@ -290,10 +269,7 @@ def create_masked_image(
 
     return masked_bgr
 
-
-# --------------------------------------------------
 # Calculate Yellow Region Statistics
-# --------------------------------------------------
 
 def calculate_mask_statistics(cleaned_mask):
     """
@@ -328,9 +304,7 @@ def calculate_mask_statistics(cleaned_mask):
     )
 
 
-# --------------------------------------------------
 # CNN Preprocessing
-# --------------------------------------------------
 
 def prepare_cnn_input(image_path):
     """
@@ -365,9 +339,7 @@ def prepare_cnn_input(image_path):
     return model_input
 
 
-# --------------------------------------------------
 # CNN Prediction
-# --------------------------------------------------
 
 def predict_with_cnn(
     model,
@@ -411,9 +383,7 @@ def predict_with_cnn(
     )
 
 
-# --------------------------------------------------
 # Draw Final Result
-# --------------------------------------------------
 
 def draw_final_result(
     image_bgr,
@@ -481,9 +451,7 @@ def draw_final_result(
     return result_bgr
 
 
-# --------------------------------------------------
 # Save Individual Images
-# --------------------------------------------------
 
 def save_pipeline_images(
     output_dir,
@@ -566,9 +534,7 @@ def save_pipeline_images(
     return output_paths
 
 
-# --------------------------------------------------
 # Save Summary Figure
-# --------------------------------------------------
 
 def save_summary_figure(
     output_dir,
@@ -723,9 +689,7 @@ def save_summary_figure(
     return summary_path
 
 
-# --------------------------------------------------
 # Save JSON Report
-# --------------------------------------------------
 
 def save_json_report(
     output_dir,
@@ -799,9 +763,7 @@ def save_json_report(
     return report_path
 
 
-# --------------------------------------------------
 # Main Function
-# --------------------------------------------------
 
 def main():
     """Run the complete school bus detection pipeline."""

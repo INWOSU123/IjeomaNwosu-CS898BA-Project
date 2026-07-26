@@ -20,9 +20,9 @@ import numpy as np
 import tensorflow as tf
 
 
-# --------------------------------------------------
+
 # Project Paths
-# --------------------------------------------------
+
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))
@@ -47,17 +47,17 @@ os.makedirs(
 )
 
 
-# --------------------------------------------------
+
 # Prediction Settings
-# --------------------------------------------------
+
 
 IMAGE_SIZE = (128, 128)
 DECISION_THRESHOLD = 0.40
 
 
-# --------------------------------------------------
+
 # Validate Files
-# --------------------------------------------------
+
 
 def validate_files(image_path):
     """Confirm that the model and image exist."""
@@ -73,9 +73,9 @@ def validate_files(image_path):
         )
 
 
-# --------------------------------------------------
+
 # Preprocess Image
-# --------------------------------------------------
+
 
 def preprocess_image(image_path):
     """
@@ -116,9 +116,9 @@ def preprocess_image(image_path):
     return original_rgb, model_input
 
 
-# --------------------------------------------------
+
 # Make Prediction
-# --------------------------------------------------
+
 
 def predict_image(model, model_input):
     """
@@ -157,9 +157,7 @@ def predict_image(model, model_input):
     )
 
 
-# --------------------------------------------------
 # Save Prediction Image
-# --------------------------------------------------
 
 def save_prediction_result(
     original_rgb,
@@ -215,9 +213,7 @@ def save_prediction_result(
     return output_path
 
 
-# --------------------------------------------------
 # Main Function
-# --------------------------------------------------
 
 def main():
     """Run prediction for one image."""

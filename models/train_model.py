@@ -22,14 +22,11 @@ import numpy as np
 import tensorflow as tf
 
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from cnn_model import build_cnn_model
 
 
-# --------------------------------------------------
-# Reproducibility
-# --------------------------------------------------
+
 
 RANDOM_SEED = 42
 
@@ -37,9 +34,9 @@ np.random.seed(RANDOM_SEED)
 tf.random.set_seed(RANDOM_SEED)
 
 
-# --------------------------------------------------
+
 # Project Paths
-# --------------------------------------------------
+
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))
@@ -69,9 +66,9 @@ OUTPUT_DIR = os.path.join(
 )
 
 
-# --------------------------------------------------
+
 # Compact Model Output Paths
-# --------------------------------------------------
+
 
 MODEL_PATH = os.path.join(
     SAVED_MODEL_DIR,
@@ -99,9 +96,9 @@ os.makedirs(SAVED_MODEL_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-# --------------------------------------------------
+
 # Training Hyperparameters
-# --------------------------------------------------
+
 
 IMAGE_SIZE = (128, 128)
 BATCH_SIZE = 16
@@ -110,9 +107,9 @@ EPOCHS = 30
 EARLY_STOPPING_PATIENCE = 8
 
 
-# --------------------------------------------------
+
 # Validate Required Directories
-# --------------------------------------------------
+
 
 def validate_directories():
     """Confirm that the training directories exist."""
@@ -129,9 +126,9 @@ def validate_directories():
         )
 
 
-# --------------------------------------------------
+
 # Create Data Generators
-# --------------------------------------------------
+
 
 def create_data_generators():
     """
@@ -186,9 +183,9 @@ def create_data_generators():
     return train_generator, validation_generator
 
 
-# --------------------------------------------------
+
 # Save Training History
-# --------------------------------------------------
+
 
 def save_training_history(history):
     """Save training and validation metrics to a JSON file."""
@@ -210,9 +207,9 @@ def save_training_history(history):
         )
 
 
-# --------------------------------------------------
+
 # Save Accuracy Plot
-# --------------------------------------------------
+
 
 def save_accuracy_plot(history):
     """Save the training and validation accuracy graph."""
@@ -254,9 +251,8 @@ def save_accuracy_plot(history):
     plt.close()
 
 
-# --------------------------------------------------
 # Save Loss Plot
-# --------------------------------------------------
+
 
 def save_loss_plot(history):
     """Save the training and validation loss graph."""
@@ -298,9 +294,9 @@ def save_loss_plot(history):
     plt.close()
 
 
-# --------------------------------------------------
+
 # Main Training Function
-# --------------------------------------------------
+
 
 def main():
     """Run the compact-model training process."""
