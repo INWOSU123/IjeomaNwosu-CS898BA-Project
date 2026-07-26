@@ -27,9 +27,7 @@ from sklearn.metrics import (
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 
-# --------------------------------------------------
 # Project Paths
-# --------------------------------------------------
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))
@@ -64,9 +62,7 @@ CONFUSION_MATRIX_PATH = os.path.join(
 )
 
 
-# --------------------------------------------------
 # Evaluation Settings
-# --------------------------------------------------
 
 IMAGE_SIZE = (128, 128)
 BATCH_SIZE = 16
@@ -86,10 +82,7 @@ THRESHOLDS = [
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-
-# --------------------------------------------------
 # Validate Required Files
-# --------------------------------------------------
 
 def validate_paths():
     """Confirm that the test dataset and model exist."""
@@ -104,10 +97,7 @@ def validate_paths():
             f"Saved model was not found: {MODEL_PATH}"
         )
 
-
-# --------------------------------------------------
 # Create Test Generator
-# --------------------------------------------------
 
 def create_test_generator():
     """Create a normalized test-data generator."""
@@ -127,9 +117,7 @@ def create_test_generator():
     return test_generator
 
 
-# --------------------------------------------------
 # Get Ordered Class Names
-# --------------------------------------------------
 
 def get_class_names(test_generator):
     """Return class names ordered by class index."""
@@ -142,10 +130,7 @@ def get_class_names(test_generator):
         )
     ]
 
-
-# --------------------------------------------------
 # Compare Thresholds
-# --------------------------------------------------
 
 def compare_thresholds(
     probabilities,
@@ -212,9 +197,7 @@ def compare_thresholds(
     return threshold_results
 
 
-# --------------------------------------------------
 # Save Confusion Matrix
-# --------------------------------------------------
 
 def save_confusion_matrix(
     matrix,
@@ -247,9 +230,7 @@ def save_confusion_matrix(
     plt.close()
 
 
-# --------------------------------------------------
 # Main Evaluation Function
-# --------------------------------------------------
 
 def main():
     """Run the complete compact-model evaluation."""

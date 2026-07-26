@@ -787,19 +787,6 @@ python models/final_pipeline.py "dataset/test/bus/schoolbus_39.jpeg"
 The script saves the original image, preprocessing stages, segmentation masks,
 final prediction, summary visualization, and a JSON report.
 
-### Expected Output Structure
-
-```text
-outputs/
-+-- evaluation/
-+-- batch_predictions/
-�   +-- batch_prediction_results.csv
-�   +-- batch_prediction_metrics.json
-�   +-- batch_prediction_confusion_matrix.png
-�   +-- misclassified_images/
-+-- final_pipeline/
-```
-
 ### Future Work
 
 Potential improvements include:
